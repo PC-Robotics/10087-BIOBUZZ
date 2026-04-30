@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.robot.subsystem;
+package org.firstinspires.ftc.teamcode.robot.subsystem.sample;
 
 import static org.firstinspires.ftc.teamcode.constants.PIDConstants.*;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -7,10 +7,11 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.robot.PIDController;
 import org.firstinspires.ftc.teamcode.robot.Robot;
+import org.firstinspires.ftc.teamcode.robot.Subsystem;
 
 import java.util.concurrent.TimeUnit;
 
-public class DrivetrainPID extends Drivetrain {
+public class DrivetrainPID extends Subsystem {
     private boolean PIDDriveActive = false;
     private boolean holding;
     private ElapsedTime holdTimer = new ElapsedTime();
@@ -37,12 +38,14 @@ public class DrivetrainPID extends Drivetrain {
     private double targetX;
     private double targetY;
     private double targetHeading;
+    private Drivetrain drivetrain;
 
     /*
      * Using the parent class, Subsystem, to construct DrivetrainPID.
      */
     public DrivetrainPID(Robot robot) {
         super(robot);
+        drivetrain = robot.drivetrain;
     }
     public void setPIDDriveActive(boolean active){
         PIDDriveActive = active;
@@ -66,7 +69,7 @@ public class DrivetrainPID extends Drivetrain {
             double forward = driveController.getOutputFromError(rotY);
             double rotate = yawController.getOutput(headingDeg);
 
-            drive(forward, -strafe, -rotate);
+            drivetrain.drive(forward, -strafe, -rotate);
 
             if (driveController.isInPosition() && strafeController.isInPosition() && yawController.isInPosition()) {
                 if (holdTimer.time(TimeUnit.SECONDS) > holdTime) {
@@ -102,7 +105,7 @@ public class DrivetrainPID extends Drivetrain {
             updatePosition();
             updateDrive();
         } else {
-            super.loop();
+            robot.drivetrain.loop();
         }
         addToTelemetry("Holding", holding);
         addToTelemetry("Target X", targetX);

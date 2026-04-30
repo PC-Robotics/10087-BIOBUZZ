@@ -6,13 +6,13 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.constants.HardwareConstants;
-import org.firstinspires.ftc.teamcode.robot.subsystem.Claw;
-import org.firstinspires.ftc.teamcode.robot.subsystem.DrivetrainPID;
-import org.firstinspires.ftc.teamcode.robot.subsystem.Elevator;
-import org.firstinspires.ftc.teamcode.robot.subsystem.Drivetrain;
-import org.firstinspires.ftc.teamcode.robot.subsystem.Flywheels;
-import org.firstinspires.ftc.teamcode.robot.subsystem.Intakes;
-import org.firstinspires.ftc.teamcode.robot.subsystem.Odometry;
+import org.firstinspires.ftc.teamcode.robot.subsystem.custom.Claw;
+import org.firstinspires.ftc.teamcode.robot.subsystem.custom.Elevator;
+import org.firstinspires.ftc.teamcode.robot.subsystem.custom.Flywheels;
+import org.firstinspires.ftc.teamcode.robot.subsystem.custom.Intakes;
+import org.firstinspires.ftc.teamcode.robot.subsystem.sample.DrivetrainPID;
+import org.firstinspires.ftc.teamcode.robot.subsystem.sample.Mecanum;
+import org.firstinspires.ftc.teamcode.robot.subsystem.sample.Odometry;
 
 import java.util.ArrayList;
 //import java.util.LinkedHashMap;
@@ -29,7 +29,8 @@ public class Robot extends RobotSetup {
      */
     public Claw claw;
     public Elevator elevator;
-    public DrivetrainPID drivetrain;
+    public Mecanum drivetrain;
+    public DrivetrainPID PID;
     public Flywheels flywheels;
     public Intakes intakes;
     public Odometry odometry;
@@ -50,7 +51,7 @@ public class Robot extends RobotSetup {
     ElapsedTime feederTimer = new ElapsedTime(); // Timer to be used when launching artifacts
 
     /*
-     * Intializing RobotSetup as well as assigning all of the the components, adding them to the
+     * Initializing RobotSetup as well as assigning all of the the components, adding them to the
      * subsystem list, and then initializing everything in the subsystem list.
      */
     @Override
@@ -58,7 +59,8 @@ public class Robot extends RobotSetup {
         super.init(hardwareMap);
         claw = new Claw(this);
         elevator = new Elevator(this);
-        drivetrain = new DrivetrainPID(this);
+        drivetrain = new Mecanum(this, leftFrontDrive, rightFrontDrive, leftBackDrive, rightBackDrive);
+        PID = new DrivetrainPID(this);
         flywheels = new Flywheels(this);
         intakes = new Intakes(this);
         odometry = new Odometry(this);
@@ -66,7 +68,7 @@ public class Robot extends RobotSetup {
         subsystems.add(odometry);
         subsystems.add(claw);
         subsystems.add(elevator);
-        subsystems.add(drivetrain);
+        subsystems.add(PID);
         subsystems.add(flywheels);
         subsystems.add(intakes);
 

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.robot.subsystem;
+package org.firstinspires.ftc.teamcode.robot.subsystem.sample;
 
 import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
 

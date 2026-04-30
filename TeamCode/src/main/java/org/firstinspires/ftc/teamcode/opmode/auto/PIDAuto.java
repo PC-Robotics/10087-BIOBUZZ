@@ -39,8 +39,8 @@ public class PIDAuto extends OpMode {
      */
     @Override
     public void start(){
-        robot.drivetrain.setPIDDriveActive(true);
-        robot.drivetrain.setTargetPosition(0, 48, 0, 1, 1);
+        robot.PID.setPIDDriveActive(true);
+        robot.PID.setTargetPosition(0, 48, 0, 1, 1);
         driveTimer.reset();
     }
 

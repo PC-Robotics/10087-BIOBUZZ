@@ -4,8 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.robot.Robot;
-import org.firstinspires.ftc.teamcode.robot.subsystem.Claw;
-import org.firstinspires.ftc.teamcode.robot.subsystem.Elevator;
+import org.firstinspires.ftc.teamcode.robot.subsystem.custom.Claw;
+import org.firstinspires.ftc.teamcode.robot.subsystem.custom.Elevator;
 
 @TeleOp(name = "Robot Centric Driving", group = "Teleop")
 public class Teleop extends OpMode {
