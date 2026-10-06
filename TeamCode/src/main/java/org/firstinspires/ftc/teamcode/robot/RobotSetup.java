@@ -14,23 +14,16 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
 /*
- * This class handles all of the hardware of the robot.
+ * This class handles the hardware of the robot.
  */
 public class RobotSetup {
 
     /*
-     * Declaring all of the hardware objects.
+     * Declaring hardware objects.
      */
-    public DcMotor leftFrontDrive = null;
-    public DcMotor rightFrontDrive = null;
-    public DcMotor leftBackDrive = null;
-    public DcMotor rightBackDrive = null;
-    public DcMotorEx leftFlywheel = null;
-    public DcMotorEx rightFlywheel = null;
-    public Servo elevatorServo = null;
-    public Servo clawServo = null;
-    public CRServo leftIntake = null;
-    public CRServo rightIntake = null;
+    public DcMotor leftFrontDrive, rightFrontDrive, leftBackDrive, rightBackDrive;
+    public DcMotorEx intake;
+    public DcMotorEx flywheel;
     public IMU imu = null;
     public GoBildaPinpointDriver odo = null;
 
@@ -51,12 +44,8 @@ public class RobotSetup {
         rightFrontDrive = hardwareMap.get(DcMotor.class, "right_front_drive");
         leftBackDrive = hardwareMap.get(DcMotor.class, "left_back_drive");
         rightBackDrive = hardwareMap.get(DcMotor.class, "right_back_drive");
-        leftFlywheel = hardwareMap.get(DcMotorEx.class, "left_launcher");
-        rightFlywheel = hardwareMap.get(DcMotorEx.class, "right_launcher");
-        elevatorServo = hardwareMap.get(Servo.class, "elevator");
-        clawServo = hardwareMap.get(Servo.class, "claw");
-        leftIntake = hardwareMap.get(CRServo.class, "left_intake");
-        rightIntake = hardwareMap.get(CRServo.class, "right_intake");
+        intake = hardwareMap.get(DcMotorEx.class, "intake");
+        flywheel = hardwareMap.get(DcMotorEx.class, "flywheel");
         imu = hardwareMap.get(IMU.class, "imu");
         odo = hardwareMap.get(GoBildaPinpointDriver.class, "odo");
 
@@ -79,8 +68,8 @@ public class RobotSetup {
          * into the port right beside the motor itself. And that the motors polarity is consistent
          * through any wiring.
          */
-        leftFlywheel.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightFlywheel.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        intake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        flywheel.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         leftFrontDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightFrontDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -88,24 +77,16 @@ public class RobotSetup {
         rightBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         /*
-         * Setting all of the PIDF coefficients for the flywheels
+         * Setting the PIDF coefficients for the flywheels
          */
-        leftFlywheel.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(280, 0, 0, 12.1));
-        rightFlywheel.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(280, 0, 0, 12.1));
+        intake.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(280, 0, 0, 12.1));
+        flywheel.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(280, 0, 0, 12.1));
 
         /*
-         * Note exactly sure why both motors are reversed. I think I reversed the polarity at some
-         * point when I was doing cable management but all that matters is that they work now.
+         * Setting intake and flywheel directions
          */
-        leftFlywheel.setDirection(DcMotorSimple.Direction.FORWARD);
-        rightFlywheel.setDirection(DcMotorSimple.Direction.REVERSE);
-
-        /*
-         * Inverting one of the intake servos so that they actually suck in the artifacts.
-         */
-        leftIntake.setDirection(DcMotorSimple.Direction.FORWARD);
-        rightIntake.setDirection(DcMotorSimple.Direction.REVERSE);
-
+        intake.setDirection(DcMotorSimple.Direction.FORWARD);
+        flywheel.setDirection(DcMotorSimple.Direction.REVERSE);
 
         /*
          * Setting zeroPowerBehavior to BRAKE enables a "brake mode". This causes the motor to
@@ -117,8 +98,8 @@ public class RobotSetup {
         leftBackDrive.setZeroPowerBehavior(BRAKE);
         rightBackDrive.setZeroPowerBehavior(BRAKE);
 
-        leftFlywheel.setZeroPowerBehavior(BRAKE);
-        rightFlywheel.setZeroPowerBehavior(BRAKE);
+        intake.setZeroPowerBehavior(BRAKE);
+        flywheel.setZeroPowerBehavior(BRAKE);
 
         /*
          * Initializing the IMU

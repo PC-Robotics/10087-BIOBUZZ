@@ -4,15 +4,11 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.robot.Robot;
-import org.firstinspires.ftc.teamcode.robot.subsystem.custom.Claw;
-import org.firstinspires.ftc.teamcode.robot.subsystem.custom.Elevator;
 
 @TeleOp(name = "Robot Centric Driving", group = "Teleop")
 public class Teleop extends OpMode {
     protected Robot robot;
     protected boolean isFieldCentric = false;
-    protected boolean openClawAfterShooting = true;
-    protected boolean autoStopIntake = false;
 
     @Override
     /* Code to run ONCE when the driver hits INIT
@@ -41,8 +37,6 @@ public class Teleop extends OpMode {
     @Override
     public void start(){
         robot.start();
-        robot.claw.setClaw(Claw.ClawState.CLOSE);
-        robot.elevator.setElevator(Elevator.ElevatorState.DOWN);
     }
 
     @Override
@@ -53,25 +47,11 @@ public class Teleop extends OpMode {
         } else {
             robot.drivetrain.drive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
         }
-
-        if (gamepad1.triangleWasPressed()) robot.flywheels.toggleFlywheels();
-
-        if (gamepad1.circleWasPressed()) robot.claw.toggleClaw();
-
-        if (gamepad1.squareWasPressed()) robot.intakes.toggleIntakes();
-
-        if (gamepad1.dpad_up) robot.elevator.setElevator(Elevator.ElevatorState.UP);
-        else if (gamepad1.dpad_left) robot.elevator.setElevator(Elevator.ElevatorState.MID);
-        else if (gamepad1.dpad_down) robot.elevator.setElevator(Elevator.ElevatorState.DOWN);
-
         if (gamepad1.options) robot.drivetrain.resetYaw();
-
-        robot.launch(gamepad1.rightBumperWasPressed(), openClawAfterShooting, autoStopIntake);
 
         /*
          * Show the state, motor powers, and servo positions.
          */
-        //telemetry.addData("State", launchState);
         robot.addTelemetry(telemetry);
     }
 }
