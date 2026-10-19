@@ -22,10 +22,10 @@ public class RobotSetup {
      * Declaring hardware objects.
      */
     public DcMotor leftFrontDrive, rightFrontDrive, leftBackDrive, rightBackDrive;
-    public DcMotorEx intake;
+    public DcMotorEx intakeMotor, transferMotor;
     public DcMotorEx flywheel;
     public IMU imu = null;
-    public GoBildaPinpointDriver odo = null;
+    //public GoBildaPinpointDriver odo = null;
 
     /*
      * Constant for IMU parameters.
@@ -44,10 +44,11 @@ public class RobotSetup {
         rightFrontDrive = hardwareMap.get(DcMotor.class, "right_front_drive");
         leftBackDrive = hardwareMap.get(DcMotor.class, "left_back_drive");
         rightBackDrive = hardwareMap.get(DcMotor.class, "right_back_drive");
-        intake = hardwareMap.get(DcMotorEx.class, "intake");
+        intakeMotor = hardwareMap.get(DcMotorEx.class, "intake");
+        transferMotor = hardwareMap.get(DcMotorEx.class, "transfer");
         flywheel = hardwareMap.get(DcMotorEx.class, "flywheel");
         imu = hardwareMap.get(IMU.class, "imu");
-        odo = hardwareMap.get(GoBildaPinpointDriver.class, "odo");
+        //odo = hardwareMap.get(GoBildaPinpointDriver.class, "odo");
 
         /*
          * To drive forward, most robots need the motor on one side to be reversed,
@@ -68,7 +69,7 @@ public class RobotSetup {
          * into the port right beside the motor itself. And that the motors polarity is consistent
          * through any wiring.
          */
-        intake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        intakeMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         flywheel.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         leftFrontDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -79,13 +80,13 @@ public class RobotSetup {
         /*
          * Setting the PIDF coefficients for the flywheels
          */
-        intake.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(280, 0, 0, 12.1));
+        intakeMotor.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(280, 0, 0, 12.1));
         flywheel.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(280, 0, 0, 12.1));
 
         /*
          * Setting intake and flywheel directions
          */
-        intake.setDirection(DcMotorSimple.Direction.FORWARD);
+        intakeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         flywheel.setDirection(DcMotorSimple.Direction.REVERSE);
 
         /*
@@ -98,7 +99,7 @@ public class RobotSetup {
         leftBackDrive.setZeroPowerBehavior(BRAKE);
         rightBackDrive.setZeroPowerBehavior(BRAKE);
 
-        intake.setZeroPowerBehavior(BRAKE);
+        intakeMotor.setZeroPowerBehavior(BRAKE);
         flywheel.setZeroPowerBehavior(BRAKE);
 
         /*

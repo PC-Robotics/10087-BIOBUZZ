@@ -12,30 +12,34 @@ import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 
 import java.util.Locale;
 public class Odometry extends Subsystem {
+    public Odometry(Robot robot) {
+        super(robot);
+    }
+    /*
     private Pose2D robotPosition = robot.odo.getPosition();
     /*
      * Using the parent class, Subsystem, to construct Odometry.
-     */
+     *
     public Odometry(Robot robot) {
         super(robot);
     }
     /*
      * Returns the X position of the robot.
-     */
+     *
     public double getXPosition(DistanceUnit unit)
     {
         return robotPosition.getX(unit);
     }
     /*
      * Returns the Y position of the robot.
-     */
+     *
     public double getYPosition(DistanceUnit unit)
     {
         return robotPosition.getY(unit);
     }
     /*
      * Returns the heading of the robot.
-     */
+     *
     public double getHeading(AngleUnit unit)
     {
         return robotPosition.getHeading(unit);
@@ -45,19 +49,19 @@ public class Odometry extends Subsystem {
     }
     /*
      * Method for updating robotPosition.
-     */
+     *
     public void updatePosition() {
         robot.odo.update();
         robotPosition = robot.odo.getPosition();
     }
     /*
      * Method for updating the telemetry with position, velocity, status, and pinpoint frequency.
-     */
+     *
     public void updateOdometryTelemetry() {
         /*
         Prints the current Position (x & y in inches, and heading in degrees) of the robot
         Can alter the DistanceUnit to display MM or INCH
-        */
+        *
         String data = String.format(
                 Locale.US, "{X: %.3f, Y: %.3f, H: %.3f}",
                 getXPosition(DistanceUnit.INCH),
@@ -68,7 +72,7 @@ public class Odometry extends Subsystem {
 
         /*
          * Gets the current Velocity (x & y in in/sec and heading in degrees/sec) and prints it.
-        */
+        *
         String velocity = String.format(
                 Locale.US,"{XVel: %.3f, YVel: %.3f, HVel: %.3f}",
                 robot.odo.getVelX(DistanceUnit.INCH),
@@ -85,7 +89,7 @@ public class Odometry extends Subsystem {
         FAULT_NO_PODS_DETECTED - the device does not detect any pods plugged in
         FAULT_X_POD_NOT_DETECTED - The device does not detect an X pod plugged in
         FAULT_Y_POD_NOT_DETECTED - The device does not detect a Y pod plugged in
-        */
+        *
         addToTelemetry("Status", robot.odo.getDeviceStatus());
 
         addToTelemetry("Pinpoint Frequency", robot.odo.getFrequency()); //prints/gets the current refresh rate of the Pinpoint
@@ -94,7 +98,7 @@ public class Odometry extends Subsystem {
     /*
      * Setting up offsets, encoder resolution, encoder directions, resetting pos and imu, and
      * adding some of the setup constants to telemetry.
-     */
+     *
     @Override
     public void init(){
         // Setting the offsets for the odometry pods
@@ -115,10 +119,11 @@ public class Odometry extends Subsystem {
     }
     /*
      * Adding telemetry and updating position.
-     */
+     *
     @Override
     public void loop(){
         updatePosition();
         updateOdometryTelemetry();
     }
+    */
 }

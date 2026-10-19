@@ -48,6 +48,8 @@ public class Teleop extends OpMode {
             robot.drivetrain.drive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
         }
         if (gamepad1.options) robot.drivetrain.resetYaw();
+        if (gamepad1.circleWasPressed()) robot.intake.toggleIntake();
+        if (gamepad1.triangleWasPressed()) robot.transfer.toggleTransfer();
 
         /*
          * Show the state, motor powers, and servo positions.

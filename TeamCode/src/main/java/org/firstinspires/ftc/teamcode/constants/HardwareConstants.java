@@ -13,6 +13,8 @@ public class HardwareConstants {
     public static final double FLYWHEEL_TARGET_VELOCITY = 2000; // old 1125
     public static final double FLYWHEEL_MIN_VELOCITY = 1990; // old: 2300
 
+    public static final double INTAKE_TARGET_VELOCITY = 1500;
+
     /*
      * Set the odometry pod positions relative to the point that the odometry computer tracks around.
      * The X pod offset refers to how far sideways from the tracking point the X (forward) odometry

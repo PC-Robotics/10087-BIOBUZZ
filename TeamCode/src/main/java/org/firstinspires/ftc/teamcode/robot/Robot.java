@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.robot.subsystem.custom.Intake;
+import org.firstinspires.ftc.teamcode.robot.subsystem.custom.Transfer;
 import org.firstinspires.ftc.teamcode.robot.subsystem.sample.DrivetrainPID;
 import org.firstinspires.ftc.teamcode.robot.subsystem.sample.Mecanum;
 import org.firstinspires.ftc.teamcode.robot.subsystem.sample.Odometry;
@@ -22,8 +24,11 @@ public class Robot extends RobotSetup {
      * Declaring all the subsystems as well as the subsystem list.
      */
     public Mecanum drivetrain;
-    public DrivetrainPID PID;
-    public Odometry odometry;
+    //public DrivetrainPID PID;
+    //public Odometry odometry;
+    public Intake intake;
+    public Transfer transfer;
+
     private final List<Subsystem> subsystems = new ArrayList<>();
 
     /*
@@ -34,11 +39,16 @@ public class Robot extends RobotSetup {
     public void init(HardwareMap hardwareMap) {
         super.init(hardwareMap);
         drivetrain = new Mecanum(this, leftFrontDrive, rightFrontDrive, leftBackDrive, rightBackDrive);
-        PID = new DrivetrainPID(this);
-        odometry = new Odometry(this);
+        //PID = new DrivetrainPID(this);
+        //odometry = new Odometry(this);
+        intake = new Intake(this, intakeMotor);
+        transfer = new Transfer(this, transferMotor);
 
-        subsystems.add(odometry);
-        subsystems.add(PID);
+        //subsystems.add(odometry);
+        //subsystems.add(PID);
+        subsystems.add(drivetrain);
+        subsystems.add(intake);
+        subsystems.add(transfer);
 
         for (Subsystem s: subsystems){
             s.init();

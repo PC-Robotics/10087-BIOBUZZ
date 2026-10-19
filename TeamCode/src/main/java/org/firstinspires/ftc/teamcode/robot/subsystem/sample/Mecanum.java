@@ -96,14 +96,14 @@ public class Mecanum extends Subsystem implements Drivetrain {
      * Method for resetting the yaw on a button press or something.
      */
     public void resetYaw(){
-        robot.odometry.resetYaw();
+        //robot.odometry.resetYaw();
     }
     /*
      * Updating the heading and telemetry of the robot every frame.
      */
     @Override
     public void loop(){
-        heading = robot.odometry.getHeading(AngleUnit.RADIANS);
+        //heading = robot.odometry.getHeading(AngleUnit.RADIANS);
         addToTelemetry("Strafe power", strafe);
         addToTelemetry("Forward power", forward);
         addToTelemetry("Left Front", leftFrontPower);

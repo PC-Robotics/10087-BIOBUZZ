@@ -52,10 +52,10 @@ public class DrivetrainPID extends Subsystem {
     }
 
     public void updatePosition(){
-        xPosition = robot.odometry.getXPosition(DistanceUnit.INCH);
-        yPosition = robot.odometry.getYPosition(DistanceUnit.INCH);
-        headingDeg = robot.odometry.getHeading(AngleUnit.DEGREES);
-        headingRad = robot.odometry.getHeading(AngleUnit.RADIANS);
+        //xPosition = robot.odometry.getXPosition(DistanceUnit.INCH);
+        //yPosition = robot.odometry.getYPosition(DistanceUnit.INCH);
+        //headingDeg = robot.odometry.getHeading(AngleUnit.DEGREES);
+        //headingRad = robot.odometry.getHeading(AngleUnit.RADIANS);
     }
     public void updateDrive(){
         if (holding) {
