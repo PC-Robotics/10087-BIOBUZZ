@@ -6,6 +6,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.robot.subsystem.custom.Intake;
 import org.firstinspires.ftc.teamcode.robot.subsystem.custom.Transfer;
+import org.firstinspires.ftc.teamcode.robot.subsystem.custom.TransferServos;
+import org.firstinspires.ftc.teamcode.robot.subsystem.custom.Shooter;
 import org.firstinspires.ftc.teamcode.robot.subsystem.sample.DrivetrainPID;
 import org.firstinspires.ftc.teamcode.robot.subsystem.sample.Mecanum;
 import org.firstinspires.ftc.teamcode.robot.subsystem.sample.Odometry;
@@ -28,6 +30,8 @@ public class Robot extends RobotSetup {
     //public Odometry odometry;
     public Intake intake;
     public Transfer transfer;
+    public TransferServos servos;
+    public Shooter shooter;
 
     private final List<Subsystem> subsystems = new ArrayList<>();
 
@@ -43,12 +47,16 @@ public class Robot extends RobotSetup {
         //odometry = new Odometry(this);
         intake = new Intake(this, intakeMotor);
         transfer = new Transfer(this, transferMotor);
+        servos = new TransferServos(this, leftBoot, rightBoot, gecko);
+        shooter = new Shooter(this, flywheel);
 
         //subsystems.add(odometry);
         //subsystems.add(PID);
         subsystems.add(drivetrain);
         subsystems.add(intake);
         subsystems.add(transfer);
+        subsystems.add(servos);
+        subsystems.add(shooter);
 
         for (Subsystem s: subsystems){
             s.init();

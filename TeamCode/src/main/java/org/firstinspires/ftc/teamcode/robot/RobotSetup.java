@@ -24,6 +24,7 @@ public class RobotSetup {
     public DcMotor leftFrontDrive, rightFrontDrive, leftBackDrive, rightBackDrive;
     public DcMotorEx intakeMotor, transferMotor;
     public DcMotorEx flywheel;
+    public CRServo leftBoot, rightBoot, gecko;
     public IMU imu = null;
     //public GoBildaPinpointDriver odo = null;
 
@@ -47,6 +48,9 @@ public class RobotSetup {
         intakeMotor = hardwareMap.get(DcMotorEx.class, "intake");
         transferMotor = hardwareMap.get(DcMotorEx.class, "transfer");
         flywheel = hardwareMap.get(DcMotorEx.class, "flywheel");
+        leftBoot = hardwareMap.get(CRServo.class,"left_boot");
+        rightBoot = hardwareMap.get(CRServo.class,"right_boot");
+        gecko = hardwareMap.get(CRServo.class,"gecko");
         imu = hardwareMap.get(IMU.class, "imu");
         //odo = hardwareMap.get(GoBildaPinpointDriver.class, "odo");
 
@@ -87,7 +91,11 @@ public class RobotSetup {
          * Setting intake and flywheel directions
          */
         intakeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        transferMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         flywheel.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        leftBoot.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightBoot.setDirection(DcMotorSimple.Direction.REVERSE);
 
         /*
          * Setting zeroPowerBehavior to BRAKE enables a "brake mode". This causes the motor to

@@ -16,13 +16,15 @@ public class TransferServos extends Subsystem {
     private boolean servosRunning;
     private CRServo leftBoot;
     private CRServo rightBoot;
+    private CRServo gecko;
     /*
      * Using the parent class, Subsystem, to construct Claw.
      */
-    public TransferServos(Robot robot, CRServo leftBoot, CRServo rightBoot) {
+    public TransferServos(Robot robot, CRServo leftBoot, CRServo rightBoot, CRServo gecko) {
         super(robot);
         this.leftBoot = leftBoot;
         this.rightBoot = rightBoot;
+        this.gecko = gecko;
     }
     /*
      * Returns true or false depending on whether or not the intakes are running.
@@ -38,9 +40,11 @@ public class TransferServos extends Subsystem {
         if (on){
             leftBoot.setPower(1);
             rightBoot.setPower(1);
+            gecko.setPower(1);
         } else {
             leftBoot.setPower(0);
             rightBoot.setPower(0);
+            gecko.setPower(0);
         }
     }
     /*
@@ -48,7 +52,7 @@ public class TransferServos extends Subsystem {
      * called from a teleop, use gamepad.buttonWasPressed() rather than gamepad.button, as one
      * button press will last multiple frames and immediately toggle off the motors.
      */
-    public void toggleIntakes(){
+    public void toggleServos(){
         setServosRunning(!servosRunning());
     }
     /*

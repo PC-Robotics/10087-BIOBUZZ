@@ -42,6 +42,7 @@ public class Teleop extends OpMode {
     @Override
     public void loop(){
         robot.loop();
+
         if (isFieldCentric) {
             robot.drivetrain.fieldCentricDrive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
         } else {
@@ -50,6 +51,8 @@ public class Teleop extends OpMode {
         if (gamepad1.options) robot.drivetrain.resetYaw();
         if (gamepad1.circleWasPressed()) robot.intake.toggleIntake();
         if (gamepad1.triangleWasPressed()) robot.transfer.toggleTransfer();
+        if (gamepad1.crossWasPressed()) robot.servos.toggleServos();
+        if (gamepad1.squareWasPressed()) robot.shooter.toggleShooter();
 
         /*
          * Show the state, motor powers, and servo positions.
