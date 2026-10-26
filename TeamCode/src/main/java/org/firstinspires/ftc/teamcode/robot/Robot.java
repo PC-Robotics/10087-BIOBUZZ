@@ -60,7 +60,7 @@ public class Robot extends RobotSetup {
 
         for (Subsystem s: subsystems){
             s.init();
-        }
+
     }
 
     /*
