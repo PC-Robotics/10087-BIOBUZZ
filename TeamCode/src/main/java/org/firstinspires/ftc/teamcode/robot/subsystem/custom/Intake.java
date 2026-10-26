@@ -17,6 +17,9 @@ public class Intake extends Subsystem {
      */
     private boolean intakeRunning;
     final private DcMotorEx motor;
+
+    public static double triggerDeadzone = 0.08;
+
     /*
      * Constructing intakes with parent class
      */
@@ -48,6 +51,17 @@ public class Intake extends Subsystem {
      */
     public void toggleIntake(){
         setIntakeRunning(!intakeRunning());
+    }
+
+    /*
+     * Method for setting velocity of the intake using a float value 0-1 of a trigger. Called from
+     * teleop, which makes sure trigger depression is more than the trigger deadzone, and this
+     * method snaps to max velocity if trigger depression is within a deadzone of 1.
+     */
+    public void setIntake(double trigger){
+        double force = trigger >= 1-triggerDeadzone ? 145.6 : trigger * 145.6;
+        addToTelemetry("Intake Force", force);
+        motor.setVelocity(force);
     }
     /*
      * Initializing the flywheel state to off

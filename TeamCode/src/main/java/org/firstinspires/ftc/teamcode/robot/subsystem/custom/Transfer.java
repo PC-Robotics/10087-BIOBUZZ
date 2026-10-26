@@ -49,6 +49,18 @@ public class Transfer extends Subsystem {
     public void toggleTransfer(){
         setTransferRunning(!TransferRunning());
     }
+
+    /*
+     * Method for setting velocity of the transfer using a float value 0-1 of a trigger. Called from
+     * teleop, which makes sure trigger depression is more than the trigger deadzone, and this
+     * method snaps to max velocity if trigger depression is within a deadzone of 1.
+     */
+    public void setTransfer(double trigger){
+        double force = trigger >= 1-Intake.triggerDeadzone ? 537.7 : trigger * 537.7;
+        addToTelemetry("Transfer Force", force);
+        motor.setVelocity(force);
+    }
+
     /*
      * Initializing the flywheel state to off
      * Setting motor mode
