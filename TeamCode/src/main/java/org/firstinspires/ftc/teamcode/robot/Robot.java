@@ -4,13 +4,11 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.robot.subsystem.custom.Intake;
 import org.firstinspires.ftc.teamcode.robot.subsystem.custom.Transfer;
 import org.firstinspires.ftc.teamcode.robot.subsystem.custom.TransferServos;
 import org.firstinspires.ftc.teamcode.robot.subsystem.custom.Shooter;
-import org.firstinspires.ftc.teamcode.robot.subsystem.sample.DrivetrainPID;
 import org.firstinspires.ftc.teamcode.robot.subsystem.sample.Mecanum;
-import org.firstinspires.ftc.teamcode.robot.subsystem.sample.Odometry;
+import org.firstinspires.ftc.teamcode.robot.subsystem.custom.Intake;
 
 import java.util.ArrayList;
 //import java.util.LinkedHashMap;
@@ -61,7 +59,7 @@ public class Robot extends RobotSetup {
         for (Subsystem s: subsystems){
             s.init();
 
-    }
+    }}
 
     /*
      * Code to be run every frame after initialization but before start.
