@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.robot;
 
 import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
 
-import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -25,6 +24,7 @@ public class RobotSetup {
     public DcMotorEx intakeMotor, transferMotor;
     public DcMotorEx flywheel;
     public CRServo leftBoot, rightBoot, gecko;
+    public Servo elevatorServo;
     public IMU imu = null;
     //public GoBildaPinpointDriver odo = null;
 
@@ -52,6 +52,7 @@ public class RobotSetup {
         rightBoot = hardwareMap.get(CRServo.class,"right_boot");
         gecko = hardwareMap.get(CRServo.class,"gecko");
         imu = hardwareMap.get(IMU.class, "imu");
+        elevatorServo = hardwareMap.get(Servo.class, "elevator");
         //odo = hardwareMap.get(GoBildaPinpointDriver.class, "odo");
 
         /*

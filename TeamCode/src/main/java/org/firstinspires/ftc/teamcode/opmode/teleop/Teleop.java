@@ -52,6 +52,7 @@ public class Teleop extends OpMode {
         if (gamepad1.options) robot.drivetrain.resetYaw();
 
 
+        //CONTROLS
         if(gamepad1.right_trigger >= Intake.triggerDeadzone){
             robot.intake.setIntake(gamepad1.right_trigger);
             robot.transfer.setTransfer(gamepad1.right_trigger);
@@ -60,9 +61,8 @@ public class Teleop extends OpMode {
             robot.intake.setIntake(0);
             robot.transfer.setTransfer(0);
         }
-//      if (gamepad1.circleWasPressed()) robot.intake.toggleIntake();
-//      if (gamepad1.triangleWasPressed()) robot.transfer.toggleTransfer();
         if (gamepad1.crossWasPressed()) robot.servos.toggleServos();
+        if (gamepad1.triangleWasPressed()) robot.elevator.moveServo();
         if (gamepad1.squareWasPressed()) robot.shooter.toggleShooter();
 
         /*

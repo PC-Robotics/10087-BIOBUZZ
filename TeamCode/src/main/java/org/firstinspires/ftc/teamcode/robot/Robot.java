@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.robot.subsystem.custom.Elevator;
 import org.firstinspires.ftc.teamcode.robot.subsystem.custom.Intake;
 import org.firstinspires.ftc.teamcode.robot.subsystem.custom.Transfer;
 import org.firstinspires.ftc.teamcode.robot.subsystem.custom.TransferServos;
@@ -32,6 +33,7 @@ public class Robot extends RobotSetup {
     public Transfer transfer;
     public TransferServos servos;
     public Shooter shooter;
+    public Elevator elevator;
 
     private final List<Subsystem> subsystems = new ArrayList<>();
 
@@ -47,8 +49,9 @@ public class Robot extends RobotSetup {
         //odometry = new Odometry(this);
         intake = new Intake(this, intakeMotor);
         transfer = new Transfer(this, transferMotor);
-        servos = new TransferServos(this, leftBoot, rightBoot, gecko);
+        servos = new TransferServos(this, leftBoot, rightBoot);
         shooter = new Shooter(this, flywheel);
+        elevator = new Elevator(this,elevatorServo);
 
         //subsystems.add(odometry);
         //subsystems.add(PID);
