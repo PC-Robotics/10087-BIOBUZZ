@@ -42,6 +42,7 @@ public class Elevator extends Subsystem {
         } else {
             elevator.setPosition(endPos);
         }
+        pos = !pos;
         servoRunning = false;
     }
     /*
