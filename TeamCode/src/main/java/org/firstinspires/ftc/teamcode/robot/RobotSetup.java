@@ -50,7 +50,6 @@ public class RobotSetup {
         flywheel = hardwareMap.get(DcMotorEx.class, "flywheel");
         leftBoot = hardwareMap.get(CRServo.class,"left_boot");
         rightBoot = hardwareMap.get(CRServo.class,"right_boot");
-        gecko = hardwareMap.get(CRServo.class,"gecko");
         imu = hardwareMap.get(IMU.class, "imu");
         elevatorServo = hardwareMap.get(Servo.class, "elevator");
         //odo = hardwareMap.get(GoBildaPinpointDriver.class, "odo");

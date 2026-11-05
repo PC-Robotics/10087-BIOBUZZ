@@ -60,6 +60,7 @@ public class Robot extends RobotSetup {
         subsystems.add(transfer);
         subsystems.add(servos);
         subsystems.add(shooter);
+        subsystems.add(elevator);
 
         for (Subsystem s: subsystems){
             s.init();

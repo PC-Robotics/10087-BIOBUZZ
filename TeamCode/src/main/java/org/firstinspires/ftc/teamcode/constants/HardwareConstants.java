@@ -14,6 +14,8 @@ public class HardwareConstants {
     public static final double FLYWHEEL_MIN_VELOCITY = 1990; // old: 2300
 
     public static final double INTAKE_TARGET_VELOCITY = 1500;
+    public static final double ELEVATOR_TOP_POSITION = 0.3;
+    public static final double ELEVATOR_BOTTOM_POSITION = 0.75;
 
     /*
      * Set the odometry pod positions relative to the point that the odometry computer tracks around.
