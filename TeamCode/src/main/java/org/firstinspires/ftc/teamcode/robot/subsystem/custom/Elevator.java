@@ -17,9 +17,9 @@ public class Elevator extends Subsystem {
     /*
      * Boolean to keep track of whether or not the intakes are running
      */
-    private Servo elevator;
-    double top = ELEVATOR_TOP_POSITION;
-    double bottom = ELEVATOR_BOTTOM_POSITION;
+    private final Servo elevator;
+    public double top = ELEVATOR_TOP_POSITION;
+    public double bottom = ELEVATOR_BOTTOM_POSITION;
     private boolean elevatorUp; // true is up, false is down
 
     /*

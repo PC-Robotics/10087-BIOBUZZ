@@ -63,6 +63,7 @@ public class Teleop extends OpMode {
         }
         if (gamepad1.crossWasPressed()) robot.servos.toggleServos();
         if (gamepad1.triangleWasPressed()) robot.elevator.moveServo();
+        if (gamepad1.circleWasPressed()) robot.alternator.moveServo();
         if (gamepad1.squareWasPressed()) robot.shooter.toggleShooter();
 
         /*

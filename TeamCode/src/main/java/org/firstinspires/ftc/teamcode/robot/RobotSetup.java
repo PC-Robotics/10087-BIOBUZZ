@@ -25,6 +25,7 @@ public class RobotSetup {
     public DcMotorEx flywheel;
     public CRServo leftBoot, rightBoot, gecko;
     public Servo elevatorServo;
+    public Servo alternatorServo;
     public IMU imu = null;
     //public GoBildaPinpointDriver odo = null;
 
@@ -52,6 +53,7 @@ public class RobotSetup {
         rightBoot = hardwareMap.get(CRServo.class,"right_boot");
         imu = hardwareMap.get(IMU.class, "imu");
         elevatorServo = hardwareMap.get(Servo.class, "elevator");
+        alternatorServo = hardwareMap.get(Servo.class, "alternator");
         //odo = hardwareMap.get(GoBildaPinpointDriver.class, "odo");
 
         /*
