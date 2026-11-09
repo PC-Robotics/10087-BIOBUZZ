@@ -37,7 +37,7 @@ public class SimpleAuto extends OpMode {
      */
     @Override
     public void start(){
-        robot.drivetrain.drive(1, 0, 0);
+        robot.drivetrain.drive(0.5, 0, 0);
         driveTimer.reset();
     }
 

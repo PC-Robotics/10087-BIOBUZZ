@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.robot;
 
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.robot.subsystem.custom.Elevator;
@@ -36,6 +37,7 @@ public class Robot extends RobotSetup {
     public Elevator elevator;
     public Elevator alternator;
 
+
     private final List<Subsystem> subsystems = new ArrayList<>();
 
     /*
@@ -54,8 +56,8 @@ public class Robot extends RobotSetup {
         shooter = new Shooter(this, flywheel);
         elevator = new Elevator(this,elevatorServo);
         alternator = new Elevator(this, alternatorServo);
-        alternator.top = 0;
-        alternator.bottom = 0.5;
+        alternator.top = 0.3;
+        alternator.bottom = 0.67;
 
         //subsystems.add(odometry);
         //subsystems.add(PID);
@@ -98,6 +100,10 @@ public class Robot extends RobotSetup {
         for (Subsystem s: subsystems){
             s.loop();
         }
+    }
+
+    public void shootMacro(){
+
     }
 
     /*

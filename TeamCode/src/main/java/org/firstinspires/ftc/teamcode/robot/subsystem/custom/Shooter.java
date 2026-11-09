@@ -61,5 +61,6 @@ public class Shooter extends Subsystem {
     @Override
     public void loop(){
         addToTelemetry("Shooter running", shooterRunning);
+        addToTelemetry("Flywheel speed",motor.getVelocity());
     }
 }

@@ -43,6 +43,16 @@ public class TransferServos extends Subsystem {
             rightBoot.setPower(0);
         }
     }
+    public void setServosReverse(boolean on){
+        servosRunning = on;
+        if (on){
+            leftBoot.setPower(-1);
+            rightBoot.setPower(-1);
+        } else {
+            leftBoot.setPower(0);
+            rightBoot.setPower(0);
+        }
+    }
     /*
      * Method for toggling the intakes to whatever they aren't currently set to. If this is being
      * called from a teleop, use gamepad.buttonWasPressed() rather than gamepad.button, as one
@@ -50,6 +60,9 @@ public class TransferServos extends Subsystem {
      */
     public void toggleServos(){
         setServosRunning(!servosRunning());
+    }
+    public void toggleServosReverse(){
+        setServosReverse(!servosRunning());
     }
     /*
      * Initializing the flywheels to off because it's not like they would ever start running anyways.

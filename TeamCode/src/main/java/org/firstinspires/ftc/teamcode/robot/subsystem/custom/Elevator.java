@@ -40,16 +40,22 @@ public class Elevator extends Subsystem {
         }
         elevatorUp = !elevatorUp;
     }
+
+    public void incrementServo(double amount){
+        double currentPos = elevator.getPosition();
+        double targetPos = currentPos + amount;
+        elevator.setPosition(targetPos);
+    }
     /*
      * Initializing the elevator to off because it's not like they would ever start running anyways.
      */
     @Override
     public void init(){
-        elevatorUp = true;
+        elevatorUp = false;
     }
     @Override
     public void start(){
-        elevator.setPosition(top);
+        elevator.setPosition(bottom);
     }
     @Override
     public void loop(){

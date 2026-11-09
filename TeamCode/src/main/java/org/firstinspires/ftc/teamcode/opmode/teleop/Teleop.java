@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.opmode.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.robot.Robot;
 import org.firstinspires.ftc.teamcode.robot.subsystem.custom.Intake;
@@ -10,6 +11,9 @@ import org.firstinspires.ftc.teamcode.robot.subsystem.custom.Intake;
 public class Teleop extends OpMode {
     protected Robot robot;
     protected boolean isFieldCentric = false;
+
+    private ElapsedTime driveTimer = new ElapsedTime();
+    private boolean shooting = false;
 
     @Override
     /* Code to run ONCE when the driver hits INIT
@@ -38,6 +42,8 @@ public class Teleop extends OpMode {
     @Override
     public void start(){
         robot.start();
+        driveTimer.reset();
+        shooting = false;
     }
 
     @Override
@@ -57,14 +63,33 @@ public class Teleop extends OpMode {
             robot.intake.setIntake(gamepad1.right_trigger);
             robot.transfer.setTransfer(gamepad1.right_trigger);
         }
+        else if(gamepad1.left_trigger >= Intake.triggerDeadzone){
+            robot.intake.setIntake(-gamepad1.left_trigger);
+            robot.transfer.setTransfer(-gamepad1.left_trigger);
+        }
         else {
             robot.intake.setIntake(0);
             robot.transfer.setTransfer(0);
         }
         if (gamepad1.crossWasPressed()) robot.servos.toggleServos();
         if (gamepad1.triangleWasPressed()) robot.elevator.moveServo();
-        if (gamepad1.circleWasPressed()) robot.alternator.moveServo();
         if (gamepad1.squareWasPressed()) robot.shooter.toggleShooter();
+        if (gamepad1.circleWasPressed()) robot.alternator.moveServo();
+        if(gamepad1.dpadDownWasPressed()) robot.servos.toggleServosReverse();
+
+        //shoot macro
+        if(gamepad1.rightBumperWasPressed() && !shooting){
+            shooting = true;
+            robot.shooter.toggleShooter();
+            driveTimer.reset();
+        }
+        if(shooting && driveTimer.seconds() >= 1){
+            shooting = false;
+            robot.elevator.moveServo();
+        }
+
+//        if(gamepad1.dpadUpWasPressed()) robot.alternator.incrementServo(0.5);
+//        if(gamepad1.dpadDownWasPressed()) robot.alternator.incrementServo(-0.5);
 
         /*
          * Show the state, motor powers, and servo positions.
