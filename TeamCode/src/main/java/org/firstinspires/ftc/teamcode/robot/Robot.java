@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.robot;
 
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.robot.subsystem.custom.Elevator;
@@ -28,8 +27,8 @@ public class Robot extends RobotSetup {
      * Declaring all the subsystems as well as the subsystem list.
      */
     public Mecanum drivetrain;
-    //public DrivetrainPID PID;
-    //public Odometry odometry;
+    public DrivetrainPID PID;
+    public Odometry odometry;
     public Intake intake;
     public Transfer transfer;
     public TransferServos servos;
@@ -48,8 +47,8 @@ public class Robot extends RobotSetup {
     public void init(HardwareMap hardwareMap) {
         super.init(hardwareMap);
         drivetrain = new Mecanum(this, leftFrontDrive, rightFrontDrive, leftBackDrive, rightBackDrive);
-        //PID = new DrivetrainPID(this);
-        //odometry = new Odometry(this);
+        PID = new DrivetrainPID(this);
+        odometry = new Odometry(this);
         intake = new Intake(this, intakeMotor);
         transfer = new Transfer(this, transferMotor);
         servos = new TransferServos(this, leftBoot, rightBoot);
@@ -59,8 +58,8 @@ public class Robot extends RobotSetup {
         alternator.top = 0.3;
         alternator.bottom = 0.67;
 
-        //subsystems.add(odometry);
-        //subsystems.add(PID);
+        subsystems.add(odometry);
+        subsystems.add(PID);
         subsystems.add(drivetrain);
         subsystems.add(intake);
         subsystems.add(transfer);
@@ -100,10 +99,6 @@ public class Robot extends RobotSetup {
         for (Subsystem s: subsystems){
             s.loop();
         }
-    }
-
-    public void shootMacro(){
-
     }
 
     /*

@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.robot.subsystem.sample;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.robot.Robot;
 import org.firstinspires.ftc.teamcode.robot.Subsystem;
 
@@ -96,7 +95,7 @@ public class Mecanum extends Subsystem implements Drivetrain {
      * Method for resetting the yaw on a button press or something.
      */
     public void resetYaw(){
-        //robot.odometry.resetYaw();
+        robot.odometry.resetYaw();
     }
     /*
      * Updating the heading and telemetry of the robot every frame.
