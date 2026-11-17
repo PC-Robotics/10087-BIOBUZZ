@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.robot.subsystem.sample;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.robot.Robot;
 import org.firstinspires.ftc.teamcode.robot.Subsystem;
 
@@ -102,7 +103,7 @@ public class Mecanum extends Subsystem implements Drivetrain {
      */
     @Override
     public void loop(){
-        //heading = robot.odometry.getHeading(AngleUnit.RADIANS);
+        heading = robot.odometry.getHeading(AngleUnit.RADIANS);
         addToTelemetry("Strafe power", strafe);
         addToTelemetry("Forward power", forward);
         addToTelemetry("Left Front", leftFrontPower);

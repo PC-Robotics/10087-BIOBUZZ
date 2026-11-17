@@ -14,6 +14,7 @@ public class Teleop extends OpMode {
 
     private ElapsedTime driveTimer = new ElapsedTime();
     private boolean shooting = false;
+    private boolean wheelsLocked = false;
 
     @Override
     /* Code to run ONCE when the driver hits INIT
@@ -50,15 +51,32 @@ public class Teleop extends OpMode {
     public void loop(){
         robot.loop();
 
-        if (isFieldCentric) {
-            robot.drivetrain.fieldCentricDrive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
-        } else {
-            robot.drivetrain.drive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
+        // lock wheels toggle
+        if (gamepad1.leftStickButtonWasPressed()) {
+            wheelsLocked = !wheelsLocked;
+            if (wheelsLocked) {
+                robot.PID.lockPosition();
+            } else {
+                robot.PID.stopHolding();
+            }
+        }
+
+        // Auto-unlock wheels if driver actively uses drive joysticks
+        if (wheelsLocked && (Math.abs(gamepad1.left_stick_x) > 0.1 || Math.abs(gamepad1.left_stick_y) > 0.1 || Math.abs(gamepad1.right_stick_x) > 0.1)) {
+            wheelsLocked = false;
+            robot.PID.stopHolding();
+        }
+
+        if (!wheelsLocked) {
+            if (isFieldCentric) {
+                robot.drivetrain.fieldCentricDrive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
+            } else {
+                robot.drivetrain.drive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
+            }
         }
         if (gamepad1.options) robot.drivetrain.resetYaw();
 
-
-        //CONTROLS
+        // CONTROLS
         if(gamepad1.right_trigger >= Intake.triggerDeadzone){
             robot.intake.setIntake(gamepad1.right_trigger);
             robot.transfer.setTransfer(gamepad1.right_trigger);
@@ -77,7 +95,7 @@ public class Teleop extends OpMode {
         if (gamepad1.circleWasPressed()) robot.alternator.moveServo();
         if(gamepad1.dpadDownWasPressed()) robot.servos.toggleServosReverse();
 
-        //shoot macro
+        // shoot macro
         if(gamepad1.rightBumperWasPressed() && !shooting){
             shooting = true;
             robot.shooter.toggleShooter();
@@ -88,8 +106,8 @@ public class Teleop extends OpMode {
             robot.elevator.moveServo();
         }
 
-//        if(gamepad1.dpadUpWasPressed()) robot.alternator.incrementServo(0.5);
-//        if(gamepad1.dpadDownWasPressed()) robot.alternator.incrementServo(-0.5);
+        if(gamepad1.dpadUpWasPressed()) robot.alternator.incrementServo(0.5);
+        if(gamepad1.dpadDownWasPressed()) robot.alternator.incrementServo(-0.5);
 
         /*
          * Show the state, motor powers, and servo positions.

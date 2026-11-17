@@ -52,10 +52,10 @@ public class DrivetrainPID extends Subsystem {
     }
 
     public void updatePosition(){
-        //xPosition = robot.odometry.getXPosition(DistanceUnit.INCH);
-        //yPosition = robot.odometry.getYPosition(DistanceUnit.INCH);
-        //headingDeg = robot.odometry.getHeading(AngleUnit.DEGREES);
-        //headingRad = robot.odometry.getHeading(AngleUnit.RADIANS);
+        xPosition = robot.odometry.getXPosition(DistanceUnit.INCH);
+        yPosition = robot.odometry.getYPosition(DistanceUnit.INCH);
+        headingDeg = robot.odometry.getHeading(AngleUnit.DEGREES);
+        headingRad = robot.odometry.getHeading(AngleUnit.RADIANS);
     }
     public void updateDrive(){
         if (holding) {
@@ -72,7 +72,7 @@ public class DrivetrainPID extends Subsystem {
             drivetrain.drive(forward, -strafe, -rotate);
 
             if (driveController.isInPosition() && strafeController.isInPosition() && yawController.isInPosition()) {
-                if (holdTimer.time(TimeUnit.SECONDS) > holdTime) {
+                if (!Double.isInfinite(holdTime) && holdTimer.time(TimeUnit.SECONDS) > holdTime) {
                     holding = false;
                 }
             } else {
@@ -92,6 +92,36 @@ public class DrivetrainPID extends Subsystem {
         holdTime = holdTimeSeconds;
         holding = true;
         holdTimer.reset();
+    }
+
+    /**
+     * Captures the robot's current position and holds it indefinitely using PID control.
+     */
+    public void lockPosition() {
+        updatePosition();
+        driveController.reset(yPosition, 1.0);
+        strafeController.reset(xPosition, 1.0);
+        yawController.reset(headingDeg, 1.0);
+
+        targetY = yPosition;
+        targetX = xPosition;
+        targetHeading = headingDeg;
+
+        holdTime = Double.POSITIVE_INFINITY;
+        holding = true;
+        holdTimer.reset();
+    }
+
+    public void lockWheels(){
+        lockPosition();
+    }
+
+    public void stopHolding() {
+        holding = false;
+    }
+
+    public boolean isHolding() {
+        return holding;
     }
 
     @Override

@@ -57,6 +57,7 @@ public class Robot extends RobotSetup {
         alternator = new Elevator(this, alternatorServo);
         alternator.top = 0.3;
         alternator.bottom = 0.67;
+        PID.setPIDDriveActive(true);
 
         subsystems.add(odometry);
         subsystems.add(PID);
